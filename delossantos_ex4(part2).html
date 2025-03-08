@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo - Luxury Content Optimization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <style>
+        :root {
+            --cream: #f8f5f0;
+            --gold: #d4b572;
+            --dark-gold: #b39147;
+            --charcoal: #232323;
+            --soft-black: #111111;
+            --red: #9a1f1f;
+            --soft-red: #c86464;
+            --white: #ffffff;
+            --light-gray: #e9e9e9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--charcoal);
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* Text Styles */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        p {
+            line-height: 1.8;
+            font-size: 1.25rem;
+        }
+
+        /* Header and Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: all 0.5s ease;
+            mix-blend-mode: difference;
+        }
+
+        header.scrolled {
+            background-color: var(--white);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+            mix-blend-mode: normal;
+        }
+
+        header.scrolled .logo,
+        header.scrolled nav a {
+            color: var(--charcoal);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            color: var(--white);
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .logo span {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 3rem;
+        }
+
+        nav a {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            font-weight: 400;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.4s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--soft-black);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(17, 17, 17, 0.6), rgba(17, 17, 17, 0.6)), url('/api/placeholder/1920/1080') center/cover no-repeat;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 6rem;
+            font-weight: 300;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--light-gray);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            color: var(--white);
+            background-color: transparent;
+            border: 1px solid var(--gold);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: var(--gold);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover {
+            color: var(--charcoal);
+        }
+
+        .btn-primary:hover::before {
+            left: 0;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 10rem 0;
+            position: relative;
+        }
+
+        section.light {
+            background-color: var(--cream);
+            color: var(--charcoal);
+        }
+
+        section.dark {
+            background-color: var(--charcoal);
+            color: var(--white);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            padding-right: 2rem;
+        }
+
+        .about-image {
+            position: relative;
+            height: 80vh;
+            max-height: 700px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--gold);
+            z-index: -1;
+        }
+
+        /* Services Section */
+        .services-container {
+            margin-top: 5rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .service-card {
+            position: relative;
+            background-color: var(--white);
+            padding: 3rem;
+            transition: all 0.4s ease;
+            border-bottom: 1px solid var(--gold);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--red);
+            transition: width 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card:hover::before {
+            width: 100%;
+        }
+
+        .service-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .service-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 1px;
+            background-color: var(--gold);
+        }
+
+        .service-card p {
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card .service-number {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 3rem;
+            font-weight: 300;
+            color: rgba(212, 181, 114, 0.2);
+        }
+
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(17, 17, 17, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay h4 {
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .gallery-overlay span {
+            display: inline-block;
+            width: 30px;
+            height: 1px;
+            background-color: var(--gold);
+        }
+
+        /* Testimonials Section */
+        .testimonials-slider {
+            margin-top: 5rem;
+            position: relative;
+        }
+
+        .testimonial {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial-text {
+            font-size: 2rem;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            position: absolute;
+            font-size: 4rem;
+            color: var(--gold);
+            opacity: 0.3;
+        }
+
+        .testimonial-text::before {
+            top: -20px;
+            left: 0;
+        }
+
+        .testimonial-text::after {
+            bottom: -60px;
+            right: 0;
+        }
+
+        .testimonial-author {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        /* Contact Section */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-details {
+            margin-bottom: 3rem;
+        }
+
+        .contact-details p {
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem 0;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(35, 35, 35, 0.2);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--charcoal);
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-bottom: 1px solid var(--gold);
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-form .btn {
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--soft-black);
+            color: var(--white);
+            padding: 5rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-about h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .footer-about p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .footer-links h4,
+        .footer-contact h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--gold);
+        }
+
+        .footer-contact p {
+            margin-bottom: 1rem;
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .services-grid,
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-content,
+            .contact-wrapper,
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .about-image {
+                height: 60vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .services-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .gallery-item {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <h1 class="logo">NO<span>VO</span></h1>
+                <nav>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#gallery">Portfolio</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Elevate Your <span>Digital Presence</span></h1>
+                <p>Where luxury meets precision in content optimization, SEO tracking, and visual refinement.</p>
+                <a href="#contact" class="btn btn-primary">Discover More</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="light">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Our Approach</h2>
+                    <p>At Novo, we believe that exceptional content is the cornerstone of any luxury brand. Our meticulous approach combines artistic vision with data-driven strategies to create digital experiences that captivate and convert.</p>
+                    <p>Each project is handled with the care and precision expected of a premium service, ensuring that every detail reflects your brand's unique identity and aspirations.</p>
+                    <p>We don't simply edit content—we transform it into a luxury experience that resonates with discerning audiences and elevates your brand above the competition.</p>
+                </div>
+                <div class="about-image">
+                    <img src="image_2025-03-08_021556872.png" alt="Luxury content optimization">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="dark">
+        <div class="container">
+            <h2>Our Expertise</h2>
+            <div class="services-container">
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-number">01</div>
+                        <h3>Content Optimization</h3>
+                        <p>Strategic refinement of your digital content to maximize engagement and conversion. We analyze performance metrics and implement targeted improvements that align with your brand's voice and objectives.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-number">02</div>
+                        <h3>SEO Tracking</h3>
+                        <p>Sophisticated analysis and implementation of search engine strategies to elevate your visibility. Our approach goes beyond keywords to create a comprehensive optimization strategy tailored to your audience.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-number">03</div>
+                        <h3>Video Editing</h3>
+                        <p>Cinematic transformation of raw footage into compelling visual narratives. We apply meticulous color grading, smooth transitions, and strategic pacing to create videos that command attention.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-number">04</div>
+                        <h3>Photo Editing</h3>
+                        <p>Artistic enhancement of imagery to reflect your brand's premium aesthetic. Our editors blend technical expertise with creative vision to produce visuals that inspire and elevate your brand's perception.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="light">
+        <div class="container">
+            <h2>Our Portfolio</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="b76975febc62fc07e652937db9916425.jpg" alt="Luxury content example">
+                    <div class="gallery-overlay">
+                        <h4>Fashion Editorial</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="brands.jpg" alt="Premium editing sample">
+                    <div class="gallery-overlay">
+                        <h4>Brand Campaign</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="3b639ed5aeff9a801984bb27c2e252b2.jpg" alt="SEO optimization results">
+                    <div class="gallery-overlay">
+                        <h4>Digital Content</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Video editing.jpg" alt="Video editing project">
+                    <div class="gallery-overlay">
+                        <h4>Video Production</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="714f984718690b13921f2d0c2fa04ed6.jpg" alt="Luxury content strategy">
+                    <div class="gallery-overlay">
+                        <h4>Content Strategy</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="youtube.jpg" alt="Social media campaign">
+                    <div class="gallery-overlay">
+                        <h4>Social Curation</h4>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="dark">
+        <div class="container">
+            <h2>Client Experiences</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial">
+                    <p class="testimonial-text">Novo has redefined our entire approach to digital content. Their meticulous attention to detail and strategic vision has elevated our brand to unprecedented heights in our competitive market.</p>
+                    <p class="testimonial-author">ELIZABETH MORGAN — LUXURY FASHION HOUSE</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="light">
+        <div class="container">
+            <h2>Connect With Us</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Let's create something exceptional together.</h3>
+                    <div class="contact-details">
+                        <p>Our studio is located in the heart of New York's luxury district, where we welcome clients by appointment.</p>
+                        <p>Email: inquiries@novo-luxury.com</p>
+                        <p>Phone: +1 (212) 555-NOVO</p>
+                        <p>Address: 980 Fifth Avenue, Suite 1800, New York, NY</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Novo</h3>
+                    <p>We transform digital content into luxury experiences that captivate audiences and drive engagement. Our meticulous approach combines artistic vision with data-driven strategies to elevate your brand.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#gallery">Portfolio</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p>Email: inquiries@novo-luxury.com</p>
+                    <p>Phone: +1 (212) 555-NOVO</p>
+                    <p>Address: 980 Fifth Avenue, Suite 1800, New York, NY</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Novo. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Fade-in animation for elements
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize GSAP
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Hero animations
+            gsap.from('.hero h1', {
+                y: 50,
+                opacity: 0,
+                duration: 1.2,
+                delay: 0.5
+            });
+            
+            gsap.from('.hero p', {
+                y: 50,
+                opacity: 0,
+                duration: 1.2,
+                delay: 0.8
+            });
+            
+            gsap.from('.hero .btn', {
+                y: 50,
+                opacity: 0,
+                duration: 1.2,
+                delay: 1.1
+            });
+            
+            // Section heading animations
+            gsap.utils.toArray('section h2').forEach(heading => {
+                gsap.from(heading, {
+                    scrollTrigger: {
+                        trigger: heading,
+                        start: "top 80%"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 1
+                });
+            });
+            
+            // Service cards animations
+            gsap.utils.toArray('.service-card').forEach((card, index) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 80%"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: index * 0.2
+                });
+            });
+            
+            // Gallery items animations
+            gsap.utils.toArray('.gallery-item').forEach((item, index) => {
+                gsap.from(item, {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top 85%"
+                    },
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.6,
+                    delay: index * 0.1
+                });
+            });
+        });
+    </script>
+</body>
+</html>
